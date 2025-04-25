@@ -8,7 +8,7 @@
 # think of welcome as being a pointer to the address of the first character in 
 # the string and the string itself as being a nul ('\0') terminated char array
 
-welcome:     .string "Welcome to EEC 170, Fall 2024 \n"
+welcome:     .string "Welcome to EEC 170, Spring 2025 \n"
 msg1:        .string "X = "
 msg2:        .string "Y = "
 msg3:        .string "X-Y = "
