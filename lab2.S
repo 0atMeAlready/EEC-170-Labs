@@ -1,9 +1,9 @@
 .data
 
-k: .word  4
-A: .word  -15, -63, -17, -29     # A [1xk] vector
-B: .word  1, -87, -91, 68, -54, -46, 24, 100, -73, -58, 12, -2, 80, 2, 83, 97, 51  # B[4x4] matrix stored in row major
-C: .word  -99, -5, 29, 62    # C[1 x k] initialized to some random values.
+k: .word 4
+A: .word -52, 47, 36, 36 # A [1x4] vector
+B: .word -68 -83 -72 40, 31 20 -2 45, -14 -79 55 23, -83 21 54 22 # B[4x4] matrix stored in row major
+C: .word 97, -94, 52, 45 # C[1 x 4] initialized to some random values.
 
 
 msg1:     .string "C = "
@@ -45,43 +45,43 @@ exit:
 mvmult:
     # x2 = A, x3 = B, x4 = C, x5 = k
 
-    li x6, 0           # x6 = j (outer loop index)
+    li x6, 0           
 
 outer_loop:
     beq x6, x5, end_mvmult
 
-    li x7, 0           # x7 = i (inner loop index)
-    li x8, 0           # x8 = accumulator (C[j])
+    li x7, 0           
+    li x8, 0           
 
 inner_loop:
-    beq x7, x5, store_cj
+    beq x7, x5, store_result
 
-    slli x9, x7, 2         # x9 = i * 4
-    add x10, x2, x9        # x10 = &A[i]
-    lw x11, 0(x10)         # x11 = A[i]
+    slli x9, x7, 2         
+    add x10, x2, x9        
+    lw x11, 0(x10)         
 
-    mul x12, x7, x5        # x12 = i * k
-    add x12, x12, x6       # x12 = i * k + j
-    slli x12, x12, 2       # x12 = word offset
-    add x13, x3, x12       # x13 = &B[i][j]
-    lw x14, 0(x13)         # x14 = B[i][j]
+    mul x12, x7, x5        
+    add x12, x12, x6       
+    slli x12, x12, 2       
+    add x13, x3, x12       
+    lw x14, 0(x13)         
 
-    mul x15, x11, x14      # x15 = A[i] * B[i][j]
-    add x8, x8, x15        # x8 += product
+    mul x15, x11, x14     
+    add x8, x8, x15        
 
     addi x7, x7, 1
     j inner_loop
 
-store_cj:
-    slli x9, x6, 2         # x9 = j * 4
-    add x10, x4, x9        # &C[j]
+store_result:
+    slli x9, x6, 2         
+    add x10, x4, x9        
     sw x8, 0(x10)
 
     addi x6, x6, 1
     j outer_loop
 
 end_mvmult:
-    jalr x0, 0(x1)         # return
+    jalr x0, 0(x1)        
 
 
 
