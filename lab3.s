@@ -1,6 +1,6 @@
 ##
-## Your Name:
-## Last Four Digits of SID:
+## Your Name: Justin Hsu
+## Last Four Digits of SID: 6097
 ## EEC 170
 ## Lab 3
 ###
